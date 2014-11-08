@@ -10,9 +10,9 @@ namespace Yandex.SpeechKit.Demo
 {
     class CitiesGame
     {
-        private String[] Phrases = {"Привет хакатон, я умею говорить!", "Твой ход первый. Называй город", "Я начинаю",
-                                       "Ответ неверный", "Моя очередь", "Нужно назвать город на букву"};
-        private String[] LikePhrases = {"Ты молодец", "Умница", "Ты сегодня умненький", "Печеньку тебе", "Хорошо получается"};
+        private String[] Phrases = {"Привет хакатон, я умею говорить! Я самый лучший соперник.", "Твой ход первый. Называй город", "Я начинаю",
+                                       "Ответ неверный", "Моя очередь", "Нужно назвать город на букву", "Я тебя не слышу. Назови город еще раз"};
+        private String[] LikePhrases = {"Ты молодец. Похлопаем", "Умница", "Ты сегодня умненький", "Печеньку тебе", "Хорошо получается"};
         public CitiesGame()
         {
             cities = new Cities();
@@ -26,7 +26,16 @@ namespace Yandex.SpeechKit.Demo
             Say(Phrases[0]);
             machineScore = personScore = 0;
             cities.InitializeCitiesSet();
-            action = (Actions)rnd.Next(0, 1);
+            int val = rnd.Next(0, 2);
+            switch(val)
+            {
+                case 0:
+                    action = Actions.Machine;
+                    break;
+                case 1:
+                    action = Actions.Person;
+                    break;
+            }
             prevCity = "null";
             prevChar = '0';
         }
@@ -59,10 +68,15 @@ namespace Yandex.SpeechKit.Demo
                     bool correct = false;
                     if (prevChar == '0')
                     {
-                        Say(Phrases[1]);    
+                        Say(Phrases[1]);
                     }
 
                     possibleCity = await speechRec.GetRecognitedSpeech();
+                    if (possibleCity == null)
+                    {
+                        Say(Phrases[6]);
+                        break;
+                    }
                     if (possibleCity[0] == prevChar || prevChar != '0')
                     {
                         correct = cities.PullCityByName(possibleCity);
@@ -73,6 +87,7 @@ namespace Yandex.SpeechKit.Demo
                     }
                     if (correct)
                     {
+                        city = possibleCity;
                         personScore++;
                         action = Actions.Machine;
                         Say(LikePhrases[rnd.Next(0, 4)]);

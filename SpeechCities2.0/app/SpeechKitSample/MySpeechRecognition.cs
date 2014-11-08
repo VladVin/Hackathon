@@ -37,18 +37,25 @@ namespace Yandex.SpeechKit.Demo
 
         public async Task<string> GetRecognitedSpeech()
         {
-            recView.StartRecognition("ru-RU", LanguageModel.General);
+            recView.StartRecognition("ru-RU", LanguageModel.Maps);
 
             status = States.Process;
+            int time = 0;
             await Task.Run(async delegate
             {
                 do
                 {
                     await Task.Delay(100);
+                    //time += 100;
+                    //if (time > 10000)
+                    //{
+                    //    recView.CancelRecognition();
+                    //    status = States.Canceled;
+                    //}
                 } while ((status != States.Finished) && (status != States.Canceled));
             });
             
-            return result;
+            return result.ToLower();
         }
 
         private void recView_Finished(object sender, UI.RecognitionFinishedEventArgs e)
