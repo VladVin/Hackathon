@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
+using System.Threading.Tasks;
+
 namespace Yandex.SpeechKit.Demo
 
 {
@@ -15,18 +17,9 @@ namespace Yandex.SpeechKit.Demo
     /// </summary>
     public partial class MainPage
     {
-        SpeechRecognition speechRec;
-
         public MainPage()
         {
             InitializeComponent();
-            speechRec = new SpeechRecognition();
         }
-
-        private void Button_Tap(object sender, GestureEventArgs e)
-        {
-            string result = speechRec.SpeechResult();
-        }
-
     }
 }
