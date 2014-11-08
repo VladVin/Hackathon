@@ -30,8 +30,29 @@ namespace Yandex.SpeechKit.Demo
 
         public bool PullCityByName(string cityName)
         {
-            // If deleted - true, otherwise - false
-            bool found = citiesSet.Remove(cityName);
+            string[] words = cityName.Split(new char[] {' '});
+            int countWords = words.Length;
+            bool found = false;
+            string newCityName;
+            switch(countWords)
+            {
+                case 1:
+                    // If deleted - true, otherwise - false
+                    newCityName = cityName;
+                    found = citiesSet.Remove(cityName);
+                    break;
+                case 2:
+                    newCityName = words[0] + "-" + words[1];
+                    found = citiesSet.Remove(newCityName);
+                    break;
+                case 3:
+                    newCityName = words[0] + "-" + words[1] + "-" + words[2];
+                    found = citiesSet.Remove(newCityName);
+                    break;
+                default:
+                    found = false;
+                    break;
+            }
             if (found)
             {
                 prevCity = cityName;
