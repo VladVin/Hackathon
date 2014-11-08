@@ -1,12 +1,12 @@
 ﻿using System.Reflection;
 using System.Resources;
 
-[assembly: AssemblyTitle("SpeechKitSample")]
-[assembly: AssemblyDescription("Yandex.SpeechKit Demo Application")]
+[assembly: AssemblyTitle("SpeechCities")]
+[assembly: AssemblyDescription("SpeechCities Application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Yandex.SpeechKit")]
-[assembly: AssemblyCopyright("Copyright © Yandex 2013")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

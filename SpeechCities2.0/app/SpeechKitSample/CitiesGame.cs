@@ -18,6 +18,7 @@ namespace Yandex.SpeechKit.Demo
             cities = new Cities();
             rnd = new Random();
             model = new MainViewModel();
+            speechRec = new MySpeechRecognition();
         }
 
         public void NewGame()
@@ -30,11 +31,12 @@ namespace Yandex.SpeechKit.Demo
             prevChar = '0';
         }
 
-        public void DoAction()
+        public async void DoAction()
         {
             string city = "";
             switch(action)
             {
+                    // The machine action
                 case Actions.Machine:
                     if (prevChar == '0')
                     {
@@ -50,21 +52,35 @@ namespace Yandex.SpeechKit.Demo
                     machineScore++;
                     action = Actions.Person;
                     break;
+
+                    // The person action
                 case Actions.Person:
+                    string possibleCity;
+                    bool correct = false;
                     if (prevChar == '0')
                     {
-                        Say(Phrases[1]); 
-                        // Recognition here
-                        
-                    
+                        Say(Phrases[1]);    
+                    }
+
+                    possibleCity = await speechRec.GetRecognitedSpeech();
+                    if (possibleCity[0] == prevChar || prevChar != '0')
+                    {
+                        correct = cities.PullCityByName(possibleCity);
                     }
                     else
                     {
-
-
+                        Say(Phrases[5]);
+                    }
+                    if (correct)
+                    {
+                        personScore++;
+                        action = Actions.Machine;
                         Say(LikePhrases[rnd.Next(0, 4)]);
                     }
-                    personScore++;
+                    else
+                    {
+                        Say(Phrases[3]);
+                    }
                     break;
             }
             prevChar = city[city.Length - 1];
@@ -74,11 +90,6 @@ namespace Yandex.SpeechKit.Demo
             }
             prevCity = city;
         }
-
-        //public string SpeechRecognition()
-        //{
-            
-        //}
 
         public async void Say(string str)
         {
@@ -99,6 +110,7 @@ namespace Yandex.SpeechKit.Demo
 
         private MainViewModel model;
         private Random rnd;
+        private MySpeechRecognition speechRec;
         enum Actions {Person, Machine};
         private Actions action;
         private char prevChar;
