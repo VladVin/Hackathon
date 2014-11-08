@@ -46,7 +46,7 @@ namespace Yandex.SpeechKit.Demo
                 case Actions.Person:
                     if (prevChar == '0')
                     {
-                        Say("Твой ход первый. Называй город");
+                        // Say("Твой ход первый. Называй город");
 
                     }
                     break;
@@ -64,10 +64,10 @@ namespace Yandex.SpeechKit.Demo
             
         //}
 
-        public async void Say(string str)
-        {
+        //public async void Say(string str)
+        //{
 
-        }
+        //}
 
         private MainViewModel model;
         private Random rnd;

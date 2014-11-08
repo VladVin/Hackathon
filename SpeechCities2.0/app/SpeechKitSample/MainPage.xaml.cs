@@ -15,17 +15,17 @@ namespace Yandex.SpeechKit.Demo
     /// </summary>
     public partial class MainPage
     {
-        private Recognizer _recognizer;
+        SpeechRecognition speechRec;
 
         public MainPage()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            speechRec = new SpeechRecognition();
         }
 
-        private void Record_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_Tap(object sender, GestureEventArgs e)
         {
-
+            string result = speechRec.SpeechResult();
         }
 
     }
