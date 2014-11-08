@@ -11,16 +11,40 @@
     SupportedOrientations="Portrait"
     Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Background>
+        <ImageBrush ImageSource="/Dmitrovskaya_Tower_of_Nizhny_Novgorod_Kremlin.jpg"/>
+    </phone:PhoneApplicationPage.Background>
 
 
-    <Grid>
+    <Grid Background="Black">
+
         <TextBlock Text="SpeechCities"
                            Style="{StaticResource PhoneTextTitle1Style}"
                            Margin="0,-7,0,0" Canvas.ZIndex="5" HorizontalAlignment="Center" TextDecorations="Underline" Width="400" Height="90" VerticalAlignment="Top" />
+        <Ellipse HorizontalAlignment="Center" Height="200" Margin="140,110,140,0" VerticalAlignment="Top" Width="200" Fill="White" Tap="Ellipse_Tap">
+            <Ellipse.Stroke>
+                <ImageBrush Stretch="Uniform" ImageSource="/microphone.png"/>
+            </Ellipse.Stroke>
+        </Ellipse>
+        <Ellipse HorizontalAlignment="Center" Height="200" Margin="140,110,140,0" VerticalAlignment="Top" Width="200">
+            <Ellipse.Fill>
+                <ImageBrush Stretch="Fill" ImageSource="/microphone.png"/>
+            </Ellipse.Fill>
+            <Ellipse.Stroke>
+                <ImageBrush Stretch="Uniform" ImageSource="/microphone.png"/>
+            </Ellipse.Stroke>
+        </Ellipse>
 
-        <Button Content="Speech" Tap="Button_Tap"/>
+        <Button Content="NEW GAME" Margin="0,0,0,15" VerticalAlignment="Bottom" Width="350" HorizontalAlignment="Center" Click="Button_Click" Background="#FFFF6209" FontSize="40"/>
+        <Grid HorizontalAlignment="Center" Height="308" Margin="0,0,0,120" VerticalAlignment="Bottom" Width="400" Background="White" Opacity="0.9">
+            <TextBlock Name="Score" HorizontalAlignment="Center" Margin="0,42,0,0" TextWrapping="Wrap" Text="Score: 0" VerticalAlignment="Top" FontSize="60" Foreground="Black" FontWeight="Bold"/>
+            <TextBlock Name="City" HorizontalAlignment="Center" Margin="4,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" Foreground="Black" TextAlignment="Center" Width="400" FontWeight="Bold">
+            	<Run Text=""/>
+            	<LineBreak/>
+            	<Run Text="                   "/>
+            </TextBlock>
 
-        <Button Content="NEW GAME" Margin="0,0,0,15" VerticalAlignment="Bottom" Width="300" HorizontalAlignment="Center"/>
+        </Grid>
         
     </Grid>
 </phone:PhoneApplicationPage>
