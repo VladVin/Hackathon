@@ -27,6 +27,10 @@ namespace Yandex.SpeechKit.Demo
         {
             Results = new ObservableCollection<string>();
 
+            StartRecognitionCommand = new RelayCommand(StartRecognition);
+            FinishRecordingCommand = new RelayCommand(FinishRecording);
+            CancelRecognitionCommand = new RelayCommand(CancelRecognition);
+
             UpdateStatus("Ready");
         }
 
@@ -46,6 +50,12 @@ namespace Yandex.SpeechKit.Demo
         #endregion
 
         #region public properties
+
+        public ICommand StartRecognitionCommand { get; private set; }
+
+        public ICommand FinishRecordingCommand { get; private set; }
+
+        public ICommand CancelRecognitionCommand { get; private set; }
 
         public ObservableCollection<string> Results { get; private set; }
 

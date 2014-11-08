@@ -19,7 +19,7 @@ namespace Yandex.SpeechKit.Demo
             
             foreach (string city in citiesArray)
             {
-                citiesSet.Add(city);
+                citiesSet.Add(city.ToLower());
             }
         }
 
@@ -60,13 +60,27 @@ namespace Yandex.SpeechKit.Demo
             return found;
         }
 
+        public string findRandomCityByFirstChar(char firstChar)
+        {
+            SortedSet<string> partOfCities = new SortedSet<string>();
+            foreach(string city in citiesSet)
+            {
+                if (city[0] == firstChar)
+                {
+                    partOfCities.Add(city);
+                }
+            }
+            var rnd = new Random();
+            return partOfCities.ElementAt(rnd.Next(0, partOfCities.Count - 1));
+        }
+
         public string previousCity
         {
             get { return prevCity; }
         }
 
         private string prevCity;
-        private SortedSet<string> citiesSet;
+        public SortedSet<string> citiesSet;
         private string[] citiesArray = { 
             "Абакан", "Абдулино", "Абинск", "Агрыз", 
             "Адыгейск", "Азнакаево", "Азов", "Ак-Довурак", "Алагир", "Алапаевск", "Алатырь", "Алейск", 
