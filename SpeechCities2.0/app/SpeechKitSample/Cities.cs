@@ -74,9 +74,9 @@ namespace Yandex.SpeechKit.Demo
             return partOfCities.ElementAt(rnd.Next(0, partOfCities.Count - 1));
         }
 
-        public string previousCity
+        public string GetPreviousCity()
         {
-            get { return prevCity; }
+            return prevCity;
         }
 
         private string prevCity;

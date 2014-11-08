@@ -1,6 +1,7 @@
 ﻿using System;
 using Yandex.SpeechKit.UI;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -32,7 +33,9 @@ namespace Yandex.SpeechKit.Demo
         
         private void Ellipse_Tap(object sender, GestureEventArgs e)
         {
-            return;
+            DoingAction.Fill = new SolidColorBrush(Colors.Green);
+            Game.DoAction();
+            DoingAction.Fill = new SolidColorBrush(Colors.White);
         }
     }
 }
