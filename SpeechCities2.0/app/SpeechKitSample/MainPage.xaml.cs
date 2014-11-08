@@ -17,9 +17,22 @@ namespace Yandex.SpeechKit.Demo
     /// </summary>
     public partial class MainPage
     {
+        private CitiesGame Game;
+
         public MainPage()
         {
             InitializeComponent();
+            Game = new CitiesGame();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Game.NewGame();
+        }
+        
+        private void Ellipse_Tap(object sender, GestureEventArgs e)
+        {
+            return;
         }
     }
 }

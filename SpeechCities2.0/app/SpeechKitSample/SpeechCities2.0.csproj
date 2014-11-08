@@ -145,6 +145,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\WideLogo.png" />
+    <Content Include="microphone.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Yandex.SpeechKit">
