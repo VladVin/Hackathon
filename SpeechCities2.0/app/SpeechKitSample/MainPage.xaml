@@ -37,9 +37,9 @@
 
         <Button Content="NEW GAME" Margin="0,0,0,15" VerticalAlignment="Bottom" Width="350" HorizontalAlignment="Center" Click="Button_Click" Background="#FFFF6209" FontSize="40"/>
         <Grid HorizontalAlignment="Center" Height="308" Margin="0,0,0,120" VerticalAlignment="Bottom" Width="400" Background="White" Opacity="0.9">
-            <TextBlock Name="Score" HorizontalAlignment="Center" Margin="0,42,0,0" TextWrapping="Wrap" Text="Score: 0" VerticalAlignment="Top" FontSize="60" Foreground="Black" FontWeight="Bold"/>
+            <TextBlock Name="Score" HorizontalAlignment="Center" Margin="0,42,0,0" TextWrapping="Wrap" Text="Score: 9" VerticalAlignment="Top" FontSize="60" Foreground="Black" FontWeight="Bold"/>
             <TextBlock Name="City" HorizontalAlignment="Center" Margin="4,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" Foreground="Black" TextAlignment="Center" Width="400" FontWeight="Bold">
-            	<Run Text=""/>
+            	<Run Text="Екатеринбург"/>
             	<LineBreak/>
             	<Run Text="                   "/>
             </TextBlock>
