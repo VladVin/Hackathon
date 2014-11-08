@@ -27,6 +27,10 @@ namespace Yandex.SpeechKit.Demo
         {
             Results = new ObservableCollection<string>();
 
+            StartRecognitionCommand = new RelayCommand(StartRecognition);
+            FinishRecordingCommand = new RelayCommand(FinishRecording);
+            CancelRecognitionCommand = new RelayCommand(CancelRecognition);
+
             UpdateStatus("Ready");
         }
 
@@ -45,6 +49,13 @@ namespace Yandex.SpeechKit.Demo
 
         #endregion
 
+        #region public properties
+
+        public ICommand StartRecognitionCommand { get; private set; }
+
+        public ICommand FinishRecordingCommand { get; private set; }
+
+        public ICommand CancelRecognitionCommand { get; private set; }
 
         public ObservableCollection<string> Results { get; private set; }
 
@@ -68,7 +79,11 @@ namespace Yandex.SpeechKit.Demo
             }
         }
 
-        public void StartRecognition()
+        #endregion
+
+        #region command handlers
+
+        private void StartRecognition()
         {
             Results.Clear();
             UpdateStatus("Initializing...");
@@ -92,7 +107,7 @@ namespace Yandex.SpeechKit.Demo
             _recognizer.Start();
         }
 
-        public void FinishRecording()
+        private void FinishRecording()
         {
             if (_recognizer != null)
             {
@@ -100,13 +115,17 @@ namespace Yandex.SpeechKit.Demo
             }
         }
 
-        public void CancelRecognition()
+        private void CancelRecognition()
         {
             if (_recognizer != null)
             {
                 _recognizer.Cancel();
             }
         }
+
+        #endregion
+
+        #region Recognizer events handlers
 
         private void RecognizerRecognitionDone(Recognizer sender, Recognition recognition)
         {
@@ -141,6 +160,8 @@ namespace Yandex.SpeechKit.Demo
         {
             BeginInvoke(() => { Power = value; });
         }
+
+        #endregion
 
         #region private methods
 
