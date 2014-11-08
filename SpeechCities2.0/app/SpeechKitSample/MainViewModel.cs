@@ -45,7 +45,6 @@ namespace Yandex.SpeechKit.Demo
 
         #endregion
 
-        #region public properties
 
         public ObservableCollection<string> Results { get; private set; }
 
@@ -69,11 +68,7 @@ namespace Yandex.SpeechKit.Demo
             }
         }
 
-        #endregion
-
-        #region command handlers
-
-        private void StartRecognition()
+        public void StartRecognition()
         {
             Results.Clear();
             UpdateStatus("Initializing...");
@@ -97,7 +92,7 @@ namespace Yandex.SpeechKit.Demo
             _recognizer.Start();
         }
 
-        private void FinishRecording()
+        public void FinishRecording()
         {
             if (_recognizer != null)
             {
@@ -105,17 +100,13 @@ namespace Yandex.SpeechKit.Demo
             }
         }
 
-        private void CancelRecognition()
+        public void CancelRecognition()
         {
             if (_recognizer != null)
             {
                 _recognizer.Cancel();
             }
         }
-
-        #endregion
-
-        #region Recognizer events handlers
 
         private void RecognizerRecognitionDone(Recognizer sender, Recognition recognition)
         {
@@ -150,8 +141,6 @@ namespace Yandex.SpeechKit.Demo
         {
             BeginInvoke(() => { Power = value; });
         }
-
-        #endregion
 
         #region private methods
 
