@@ -1,3 +1,3 @@
 SpeechCities game
 ========================
-It's hackathon Imagine Cup project
+It's hackathon Imagine Cup project.
