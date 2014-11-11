@@ -17,7 +17,6 @@ namespace Yandex.SpeechKit.Demo
         private string result;
         public enum States { Canceled, Finished, Process };
         public States status {get; private set;}
-        DispatcherTimer dt;
 
         public MySpeechRecognition()
         {
@@ -25,9 +24,6 @@ namespace Yandex.SpeechKit.Demo
             SpeechKitInitializer.SetParameter("soundformat", "speex");
             recView = new RecognizerView();
             recView.Finished += recView_Finished;
-            dt = new DispatcherTimer();
-            dt.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            dt.Tick += dt_Tick;
         }
 
         void dt_Tick(object sender, EventArgs e)

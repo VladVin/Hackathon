@@ -24,18 +24,28 @@ namespace Yandex.SpeechKit.Demo
         {
             InitializeComponent();
             Game = new CitiesGame();
+            Game.NewGame();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Game.NewGame();
+            Score.Text = "Score: " + Game.personScore.ToString();
+            CityName.Text = "";
         }
-        
-        private void Ellipse_Tap(object sender, GestureEventArgs e)
+
+        private async void Ellipse_Tap(object sender, GestureEventArgs e)
         {
-            DoingAction.Fill = new SolidColorBrush(Colors.Green);
-            Game.DoAction();
-            DoingAction.Fill = new SolidColorBrush(Colors.White);
+            DoingAction.Opacity = 1.0d;
+            CitiesGame.ActionResults actRes = CitiesGame.ActionResults.NotCorrect;
+            actRes = await Game.DoAction();
+            if (actRes == CitiesGame.ActionResults.LastIsPerson)
+            {
+                Score.Text = "Score: " + Game.personScore.ToString();
+                await Game.DoAction();
+            }
+            CityName.Text = Game.prevCity;
+            DoingAction.Opacity = 0.7d;
         }
     }
 }

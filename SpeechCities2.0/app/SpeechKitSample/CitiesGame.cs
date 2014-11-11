@@ -10,8 +10,16 @@ namespace Yandex.SpeechKit.Demo
 {
     class CitiesGame
     {
-        private String[] Phrases = {"Привет хакатон, я умею говорить! Я самый лучший соперник.", "Твой ход первый. Называй город", "Я начинаю",
-                                       "Ответ неверный", "Моя очередь", "Нужно назвать город на букву", "Я тебя не слышу. Назови город еще раз"};
+        public enum ActionResults {Norm, NotCorrect, LastIsMachine, LastIsPerson, GameOver, Mute};
+        private String[] Phrases = {"Привет!",
+                                       "Твой ход первый. Называй город",
+                                       "Я начинаю",
+                                       "Ответ неверный",
+                                       "Моя очередь",
+                                       "Нужно назвать город на букву ",
+                                       "Я тебя не слышу. Назови город еще раз",
+                                       "Список городов опустел. Игра закончена"
+                                   };
         private String[] LikePhrases = {"Ты молодец. Похлопаем", "Умница", "Ты сегодня умненький", "Печеньку тебе", "Хорошо получается"};
         public CitiesGame()
         {
@@ -36,13 +44,21 @@ namespace Yandex.SpeechKit.Demo
                     action = Actions.Person;
                     break;
             }
-            prevCity = "null";
+            action = Actions.Machine;
+            prevCity = "";
             prevChar = '0';
         }
 
-        public async void DoAction()
+        public async Task<ActionResults> DoAction()
         {
+            bool correct = false;
             string city = "";
+            ActionResults doActionRes = ActionResults.NotCorrect;
+            if (cities.IsEmpty())
+            {
+                Say(Phrases[7]);
+                doActionRes =  ActionResults.GameOver;
+            }
             switch(action)
             {
                     // The machine action
@@ -50,60 +66,75 @@ namespace Yandex.SpeechKit.Demo
                     if (prevChar == '0')
                     {
                         Say(Phrases[2]);
-                        city = cities.citiesSet.ElementAt(rnd.Next(0, cities.citiesSet.Count - 1));
+                        city = cities.PullRandomCity();
                     }
                     else
                     {
                         Say(Phrases[4]);
-                        city = cities.findRandomCityByFirstChar(prevChar);
+                        city = cities.PullRandomCityByFirstChar(prevChar);
                     }
                     Say(city);
                     machineScore++;
                     action = Actions.Person;
+                    doActionRes = ActionResults.LastIsMachine;
+                    correct = true;
                     break;
 
                     // The person action
                 case Actions.Person:
-                    string possibleCity;
-                    bool correct = false;
+                    string possibleCity = "";
                     if (prevChar == '0')
                     {
                         Say(Phrases[1]);
                     }
 
                     possibleCity = await speechRec.GetRecognitedSpeech();
-                    if (possibleCity == null)
+                    if (possibleCity.Length == 0)
                     {
                         Say(Phrases[6]);
+                        doActionRes = ActionResults.Mute;
                         break;
                     }
-                    if (possibleCity[0] == prevChar || prevChar != '0')
+                    if (possibleCity[0] == prevChar || prevChar == '0')
                     {
                         correct = cities.PullCityByName(possibleCity);
+                        if (correct)
+                        {
+                            city = possibleCity;
+                            personScore++;
+                            action = Actions.Machine;
+                            Say(LikePhrases[rnd.Next(0, 4)]);
+                            doActionRes = ActionResults.LastIsPerson;
+                        }
+                        else
+                        {
+                            Say(Phrases[3]);
+                            doActionRes = ActionResults.NotCorrect;
+                            break;
+                        }
                     }
                     else
                     {
-                        Say(Phrases[5]);
-                    }
-                    if (correct)
-                    {
-                        city = possibleCity;
-                        personScore++;
-                        action = Actions.Machine;
-                        Say(LikePhrases[rnd.Next(0, 4)]);
-                    }
-                    else
-                    {
-                        Say(Phrases[3]);
+                        Say(Phrases[5] + prevChar);
+                        doActionRes = ActionResults.NotCorrect;
                     }
                     break;
             }
-            prevChar = city[city.Length - 1];
-            if (prevChar == 'ь' || prevChar == 'ы' || prevChar == 'ъ')
+            if (correct)
             {
-                prevChar = city[city.Length - 2];
+                prevChar = city[city.Length - 1];
+                if (prevChar == 'ь' || prevChar == 'ы' || prevChar == 'ъ')
+                {
+                    prevChar = city[city.Length - 2];
+                }
+                prevCity = city;
             }
-            prevCity = city;
+            else
+            {
+                doActionRes = ActionResults.NotCorrect;
+            }
+
+            return doActionRes;
         }
 
         public async void Say(string str)
@@ -129,7 +160,7 @@ namespace Yandex.SpeechKit.Demo
         enum Actions {Person, Machine};
         private Actions action;
         private char prevChar;
-        public string prevCity;
+        public string prevCity {get; private set;}
         public Cities cities;
         public int machineScore, personScore;
     }

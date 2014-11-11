@@ -11,7 +11,7 @@ namespace Yandex.SpeechKit.Demo
         public Cities()
         {
             citiesSet = new SortedSet<string>();
-            prevCity = "null";
+            prevCity = "";
         }        
 
         public void InitializeCitiesSet()
@@ -28,13 +28,45 @@ namespace Yandex.SpeechKit.Demo
             citiesSet.Clear();
         }
 
+        public string PullRandomCity()
+        {
+            var rnd = new Random();
+            string city = citiesSet.ElementAt(rnd.Next(0, citiesSet.Count));
+            citiesSet.Remove(city);
+            return city;
+        }
+
+        public string PullRandomCityByFirstChar(char firstChar)
+        {
+            int a = -1, b = -1;
+            string city = "";
+            for (int i = 0; i < citiesSet.Count; ++i)
+            {
+                string tmpCity = citiesSet.ElementAt(i);
+                if (tmpCity[0] == firstChar)
+                {
+                    a = (a == -1) ? i : a;
+                    b = i;
+                }
+            }
+            
+            if (a != -1)
+            {
+                var rnd = new Random();
+                city = citiesSet.ElementAt(rnd.Next(a, b + 1));
+                citiesSet.Remove(city);
+                prevCity = city;
+            }
+            return city;
+        }
+
         public bool PullCityByName(string cityName)
         {
-            string[] words = cityName.Split(new char[] {' '});
+            string[] words = cityName.Split(new char[] { ' ' });
             int countWords = words.Length;
             bool found = false;
             string newCityName;
-            switch(countWords)
+            switch (countWords)
             {
                 case 1:
                     // If deleted - true, otherwise - false
@@ -60,23 +92,14 @@ namespace Yandex.SpeechKit.Demo
             return found;
         }
 
-        public string findRandomCityByFirstChar(char firstChar)
-        {
-            SortedSet<string> partOfCities = new SortedSet<string>();
-            foreach(string city in citiesSet)
-            {
-                if (city[0] == firstChar)
-                {
-                    partOfCities.Add(city);
-                }
-            }
-            var rnd = new Random();
-            return partOfCities.ElementAt(rnd.Next(0, partOfCities.Count - 1));
-        }
-
         public string GetPreviousCity()
         {
             return prevCity;
+        }
+
+        public bool IsEmpty()
+        {
+            return (citiesSet.Count == 0);
         }
 
         private string prevCity;
