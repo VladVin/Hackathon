@@ -19,32 +19,38 @@ namespace Yandex.SpeechKit.Demo
     public partial class MainPage
     {
         private CitiesGame Game;
+        private CitiesGame.ActionResults actRes;
 
         public MainPage()
         {
             InitializeComponent();
             Game = new CitiesGame();
-            Game.NewGame();
+            InitializeNewGame();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void InitializeNewGame()
         {
             Game.NewGame();
             Score.Text = "Score: " + Game.personScore.ToString();
             CityName.Text = "";
+            actRes = CitiesGame.ActionResults.None;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InitializeNewGame();
         }
 
         private async void Ellipse_Tap(object sender, GestureEventArgs e)
         {
             DoingAction.Opacity = 1.0d;
-            CitiesGame.ActionResults actRes = CitiesGame.ActionResults.NotCorrect;
             actRes = await Game.DoAction();
             if (actRes == CitiesGame.ActionResults.LastIsPerson)
             {
-                Score.Text = "Score: " + Game.personScore.ToString();
-                await Game.DoAction();
+                //await Game.DoAction();
             }
-            CityName.Text = Game.prevCity;
+            Score.Text = "Score: " + Game.personScore.ToString();
+            CityName.Text = Game.prevCity.ToUpper();
             DoingAction.Opacity = 0.7d;
         }
     }

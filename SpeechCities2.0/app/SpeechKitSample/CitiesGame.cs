@@ -10,7 +10,7 @@ namespace Yandex.SpeechKit.Demo
 {
     class CitiesGame
     {
-        public enum ActionResults {Norm, NotCorrect, LastIsMachine, LastIsPerson, GameOver, Mute};
+        public enum ActionResults {None, Norm, NotCorrect, LastIsMachine, LastIsPerson, GameOver, Mute};
         private String[] Phrases = {"Привет!",
                                        "Твой ход первый. Называй город",
                                        "Я начинаю",
@@ -162,6 +162,7 @@ namespace Yandex.SpeechKit.Demo
         private char prevChar;
         public string prevCity {get; private set;}
         public Cities cities;
-        public int machineScore, personScore;
+        public int machineScore {get; private set;}
+        public int personScore {get; private set;}
     }
 }
