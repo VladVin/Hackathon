@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="xe9d2ae53ye39fy4a4fy9067ybd5401abce65x" Executable="AGHost.exe" EntryPoint="MainPage.xaml">
-      <m3:VisualElements DisplayName="SpeechKitSample" Square150x150Logo="Assets\SquareTile150x150.png" Square44x44Logo="Assets\Logo.png" Description="SpeechKitSample" ForegroundText="light" BackgroundColor="#464646">
+      <m3:VisualElements DisplayName="SpeechCities" Square150x150Logo="Assets\SquareTile150x150.png" Square44x44Logo="Assets\Logo.png" Description="SpeechCities game" ForegroundText="light" BackgroundColor="#464646">
         <m3:DefaultTile Square71x71Logo="Assets\SquareTile71x71.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\Splashscreen.png" />
