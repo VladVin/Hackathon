@@ -12,7 +12,7 @@ namespace Yandex.SpeechKit.Demo
         {
             citiesSet = new SortedSet<string>();
             prevCity = "";
-        }        
+        }
 
         public void InitializeCitiesSet()
         {
