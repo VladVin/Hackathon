@@ -11,7 +11,7 @@ namespace Yandex.SpeechKit.Demo
     class CitiesGame
     {
         public enum ActionResults {None, Norm, NotCorrect, LastIsMachine, LastIsPerson, GameOver, Mute};
-        private String[] Phrases = {"Привет!",
+        private String[] Phrases = {"Привет! Нажимай микрофон, когда хочешь что-то сказать, либо когда я закончу говорить.",
                                        "Твой ход первый. Называй город",
                                        "Я начинаю",
                                        "Ответ неверный",

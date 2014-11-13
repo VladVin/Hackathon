@@ -4,7 +4,7 @@
   <Languages xmlns="">
     <Language code="en-US" />
   </Languages>
-  <App xmlns="" ProductID="{e9d2ae53-e39f-4a4f-9067-bd5401abce65}" Title="SpeechKitSample" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Yandex" Description="" Publisher="Yandex" PublisherID="{8ef402bd-a033-4c05-a1cf-cfbac280a85c}">
+  <App xmlns="" ProductID="{e9d2ae53-e39f-4a4f-9067-bd5401abce65}" Title="Speech Cities" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Yandex" Description="" Publisher="Yandex" PublisherID="{8ef402bd-a033-4c05-a1cf-cfbac280a85c}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -21,7 +21,7 @@
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>SpeechKitSample</Title>
+          <Title>Speech Cities</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
