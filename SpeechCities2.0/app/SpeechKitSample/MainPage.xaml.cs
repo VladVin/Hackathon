@@ -36,6 +36,22 @@ namespace Yandex.SpeechKit.Demo
             actRes = CitiesGame.ActionResults.None;
         }
 
+        // Crutch
+        private void NormalizeTaps(ref int tCount)
+        {
+            if (tCount == 0)
+            {
+                DoAction.Tap += Ellipse_Tap;
+            }
+
+            for (int i = 1; i < tCount; ++i)
+            {
+                DoAction.Tap -= Ellipse_Tap;
+            }
+
+            tCount = 1;
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             InitializeNewGame();
@@ -44,11 +60,9 @@ namespace Yandex.SpeechKit.Demo
         private async void Ellipse_Tap(object sender, GestureEventArgs e)
         {
             DoingAction.Opacity = 1.0d;
+
             actRes = await Game.DoAction();
-            if (actRes == CitiesGame.ActionResults.LastIsPerson)
-            {
-                //await Game.DoAction();
-            }
+            
             Score.Text = "Score: " + Game.personScore.ToString();
             CityName.Text = Game.prevCity.ToUpper();
             DoingAction.Opacity = 0.7d;

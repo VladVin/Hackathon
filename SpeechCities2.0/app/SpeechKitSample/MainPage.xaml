@@ -22,17 +22,11 @@
                            Style="{StaticResource PhoneTextTitle1Style}"
                            Margin="0,-7,0,0" Canvas.ZIndex="5" HorizontalAlignment="Center" TextDecorations="Underline" Width="400" Height="90" VerticalAlignment="Top" />
         <Ellipse x:Name="DoingAction" HorizontalAlignment="Center" Height="200" Margin="140,110,140,0" VerticalAlignment="Top" Width="200" Fill="White" Opacity="0.7">
-            <!--<Ellipse.Stroke>
-                <ImageBrush Stretch="Uniform" ImageSource="/microphone.png"/>
-            </Ellipse.Stroke>-->
         </Ellipse>
         <Ellipse x:Name="DoAction" HorizontalAlignment="Center" Height="200" Margin="140,110,140,0" VerticalAlignment="Top" Width="200" Tap="Ellipse_Tap">
             <Ellipse.Fill>
                 <ImageBrush Stretch="Fill" ImageSource="/microphone.png"/>
             </Ellipse.Fill>
-            <!--<Ellipse.Stroke>
-                <ImageBrush Stretch="Uniform" ImageSource="/microphone.png"/>
-            </Ellipse.Stroke>-->
         </Ellipse>
 
         <Button Content="NEW GAME" Margin="0,0,0,15" VerticalAlignment="Bottom" Width="350" HorizontalAlignment="Center" Click="Button_Click" Background="#FFFF6209" FontSize="40"/>
